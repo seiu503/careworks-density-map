@@ -12,8 +12,8 @@ const svg = d3.select('body').append('svg')
   .attr('height', height);
 
 const projection = d3.geoAlbersUsa()
-  .scale(1370)
-  .translate([width / 2, height / 2]);
+  .scale(1)
+  .translate([0, 0]);
 
 const path = d3.geoPath().projection(projection);
 
@@ -27,16 +27,21 @@ const resize = () => {
   projection.scale(width / 2 / Math.PI).translate([width / 2, height / 2]);
   d3.select("g").attr("transform", `scale(${width / initialWidth})`);
   d3.selectAll("circle")
-    .attr('cx', d => projection([d[10], d[11]])[0])
-    .attr('cy', d => projection([d[10], d[11]])[1]);
+    .attr('cx', d => projection([d[6], d[7]]))
+    .attr('cy', d => projection([d[6], d[7]]));
 }
 
 
 d3.queue()
-  // .defer(d3.json, 'https://raw.githubusercontent.com/deldersveld/topojson/master/countries/us-states/OR-41-oregon-counties.json')
-  .defer(d3.json, 'https://raw.githubusercontent.com/deldersveld/topojson/master/countries/united-states/us-albers-counties.json')
-  .defer(d3.json, './careworks_123_geo.json')
+  // .defer(d3.json, 'https://bl.ocks.org/mbostock/raw/4090846/us.json')
+  .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/OR-41-oregon-counties.json?token=AX1nvY85DaeJj9L23zPSgCOwzb2Em0nVks5ahLVSwA%3D%3D')
+  .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/cw.json?token=AX1nvY85DaeJj9L23zPSgCOwzb2Em0nVks5ahLVSwA%3D%3D')
   .await((error, json, contacts) => {
+    console.log(json)
+
+    projection
+      .scale(1)
+      .translate([0, 0]);
 
     contactScale
     .range([1, 2, 3]);
@@ -55,21 +60,21 @@ d3.queue()
 
     svg.append('g')
       .selectAll('.contact')
-      .data(contact)
+      .data(contacts)
       .enter().append('circle')
         .attr('class', 'contact')
-        .attr('cx', d => projection([d[10], d[11]])[0])
-        .attr('cy', d => projection([d[10], d[11]])[1])
+        .attr('cx', d => projection([d[6], d[6]]))
+        .attr('cy', d => projection([d[6], d[7]]))
         .attr("r",  10)
-        .attr("id", d => `id${d.id}`)
-        .attr('fill', d => colorScale(d.properties.assessment))
+        .attr("id", d => `id${d[0]}`)
+        .attr('fill', d => colorScale(d[5]))
         .style('opacity', '0.5')
         .on('mouseover', (d) => {
-          const assessment = d[7];
+          const assessment = d[5];
           tooltip.transition()
             .duration(100)
             .style('opacity', .9);
-          tooltip.html(`<span class="tip-name">${d[0]} ${d[1]} </span><span class="tip-date">&nbsp;(${d[7]})</span>`) // first last assessment
+          tooltip.html(`<span class="tip-name">${d[1]}<br>${d[2]}, ${d[3]} ${d[4]}</span><span class="tip-date">&nbsp;Assessment: ${d[5]}</span>`) // first last assessment
             .style('left', `${d3.event.pageX - 87}px`)
             // keep tooltips from overlapping with circles
             .style('top', `${d3.event.pageY - (tip.clientHeight + 20)}px`);
