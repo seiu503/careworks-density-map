@@ -27,8 +27,8 @@ const resize = () => {
   projection.scale(width / 2 / Math.PI).translate([width / 2, height / 2]);
   d3.select("g").attr("transform", `scale(${width / initialWidth})`);
   d3.selectAll("circle")
-    .attr('cx', d => projection([d.properties.reclong, d.properties.reclat])[0])
-    .attr('cy', d => projection([d.properties.reclong,d.properties.reclat])[1]);
+    .attr('cx', d => projection([d[10], d[11]])[0])
+    .attr('cy', d => projection([d[10], d[11]])[1]);
 }
 
 
@@ -55,21 +55,21 @@ d3.queue()
 
     svg.append('g')
       .selectAll('.contact')
-      .data(contact.assessment)
+      .data(contact)
       .enter().append('circle')
         .attr('class', 'contact')
-        .attr('cx', d => projection([d.properties.reclong, d.properties.reclat])[0])
-        .attr('cy', d => projection([d.properties.reclong,d.properties.reclat])[1])
+        .attr('cx', d => projection([d[10], d[11]])[0])
+        .attr('cy', d => projection([d[10], d[11]])[1])
         .attr("r",  10)
         .attr("id", d => `id${d.id}`)
         .attr('fill', d => colorScale(d.properties.assessment))
         .style('opacity', '0.5')
         .on('mouseover', (d) => {
-          const assessment = d.properties.assessment
+          const assessment = d[7];
           tooltip.transition()
             .duration(100)
             .style('opacity', .9);
-          tooltip.html(`<span class="tip-name">${d.properties.name}</span><span class="tip-date">&nbsp;(${year})</span><br><span class="tip-mass">${formatMass(d.properties.mass)}</span>`)
+          tooltip.html(`<span class="tip-name">${d[0]} ${d[1]} </span><span class="tip-date">&nbsp;(${d[7]})</span>`) // first last assessment
             .style('left', `${d3.event.pageX - 87}px`)
             // keep tooltips from overlapping with circles
             .style('top', `${d3.event.pageY - (tip.clientHeight + 20)}px`);
