@@ -31,50 +31,59 @@
 //     .attr('cy', d => projection([d[6], d[7]]));
 // }
 
-var width = 960,
+  var width = 960,
     height = 500;
 
-var projection = d3.geoAlbers();
+  var projection = d3.geoAlbers();
 
-var path = d3.geoPath()
-    .projection(projection);
+  var path = d3.geoPath()
+      .projection(projection);
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
 
-d3.json("https://unpkg.com/us-atlas@1/us/10m.json", function(error, us) {
-  if (error) throw error;
+  d3.json("https://raw.githubusercontent.com/seiu503/careworks-density-map/master/us.json?token=AX1nvaGCOcfTt-j9YBYKBop1VoQl94w2ks5ahNdbwA%3D%3D", function(error, us) {
+    if (error) throw error;
 
-  var states = topojson.feature(us, us.objects.states),
-      state = states.features.filter(function(d) { return d.id === 41; })[0];
+    var states = topojson.feature(us, us.objects.states),
+        state = states.features.filter(function(d) { return d.id === 41; })[0];
 
-  projection
-      .scale(1)
+    projection.scale(1)
       .translate([0, 0]);
 
-  var b = path.bounds(state),
+    var b = path.bounds(state),
       s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
       t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
-  projection
-      .scale(s)
+    projection.scale(s)
       .translate(t);
 
-  svg.append("path")
-      .datum(states)
-      .attr("class", "feature")
-      .attr("d", path);
 
-  svg.append("path")
-      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-      .attr("class", "mesh")
-      .attr("d", path);
+    svg.append("path")
+        .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+        .attr("class", "mesh")
+        .attr("d", path);
 
-  svg.append("path")
-      .datum(state)
-      .attr("class", "outline")
-      .attr("d", path);
+    svg.append("path")
+        .datum(state)
+        .attr("class", "outline")
+        .attr("d", path)
+        .attr('id', 'land');
+
+     svg.append("clipPath")
+        .attr("id", "clip-land")
+        .append("use")
+        .attr("xlink:href", "#land");
+
+    svg.selectAll("path")
+        .data(topojson.feature(us, us.objects.counties).features)
+        .enter().append("path")
+        .attr("d", path)
+        .attr('county-id', function(d){
+           return d.id
+        }).attr("clip-path", "url(#clip-land)")
+        .attr('class', 'county');
 });
 
 
