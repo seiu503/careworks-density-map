@@ -34,10 +34,10 @@ const resize = () => {
 
 d3.queue()
   // .defer(d3.json, 'https://bl.ocks.org/mbostock/raw/4090846/us.json')
-  .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/OR-41-oregon-counties.json?token=AX1nvY85DaeJj9L23zPSgCOwzb2Em0nVks5ahLVSwA%3D%3D')
+  .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/jsoncounties-OR.min.js?token=AX1nvYv9b2MoIo05-cOrEU2HSij3mm-qks5ahMm9wA%3D%3D')
   .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/cw.json?token=AX1nvY85DaeJj9L23zPSgCOwzb2Em0nVks5ahLVSwA%3D%3D')
   .await((error, json, contacts) => {
-    console.log(json)
+    console.log(json.features.counties);
 
     projection
       .scale(1)
@@ -49,14 +49,14 @@ d3.queue()
     colorScale
     .range(["#FFFF66", "#E68000", "#CC0000"]);
 
-    svg.selectAll("path")
-       .attr("id", "state_fips")
-       .data(topojson.feature(json, json.objects.collection).features.filter(function(d) { return d.properties.state_fips == 41; }))
-       .enter()
-       .append("path")
-       .attr("d", path)
-       .attr("stroke","white")
-       .attr("fill", "gray");
+    svg.append("g")
+      .attr("class", "counties")
+      .selectAll("path")
+      .data(topojson.feature(json, json.features.counties).features)
+      .enter().append("path")
+      .attr("d", path)
+      .attr("stroke","white")
+      .attr("fill", "gray");
 
     svg.append('g')
       .selectAll('.contact')
