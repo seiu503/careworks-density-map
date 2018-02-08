@@ -72,8 +72,6 @@ path {
   padding: 0 0 0 40px;
 }
 
-.legend-1 {}
-
 .legend-1::before {
   background: #ff0000;
   content: "";
@@ -110,68 +108,3 @@ path {
   display: flex;
   justify-content: center;
 }
-
-/*.legend:hover circle {
-  cursor: pointer;
-  opacity: .5;
-  -webkit-box-shadow: 0px 0px 10px 2px lime;
-  -moz-box-shadow: 0px 0px 10px 2px lime;
-  box-shadow: 0px 0px 10px 2px lime;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.visible {
-  display: block !important;
-}
-
-.button-wrap {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.btn {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  text-align: center;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  padding: 6px 12px;
-  color: rgb(110, 28, 233);
-  border: 1px solid rgb(110, 28, 233);
-  transition: background 300ms ease-in-out;
-  border-radius: 40px;
-}
-
-.btn:hover, .btn:active, .btn:focus {
-  -webkit-appearance: none;
-  appearance: none;
-  color: inherit;
-  background: rgb(110, 28, 233);
-  background: linear-gradient(-134deg, purple 0%, rgb(110, 28, 233) 100%);
-  color: white;
-  border: 1px solid rgb(110, 28, 233);
-  transition background 300ms ease-in-out;
-  outline: 0;
-  -webkit-box-shadow: 2px 2px 10px 0 rgba(110, 28, 233, 0.8);
-  -moz-box-shadow: 2px 2px 10px 0 rgba(110, 28, 233, 0.8);
-  box-shadow: 2px 2px 10px 0 rgba(110, 28, 233, 0.8);
-}
-
-.btn-hide {
-  opacity: 0;
-  height: 0;
-  visibility: hidden;
-  padding: 0;
-}
-
-.btn-show {
-  opacity: 1;
-  height: auto;
-  visibility: visible;
-}*/

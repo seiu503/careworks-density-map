@@ -61,68 +61,6 @@ d3.queue()
       .attr('fill', d => colorScale(d[5]))
       .style('opacity', d => opacityScale(d[5]));
 
-  // const legendRectSize = 18;
-  // const legendSpacing = 8;
-
-  // const legend = svg.selectAll('.legend')
-  //   .data(colorScale.domain())
-  //   .enter()
-  //   .append('g')
-  //   .attr('class', 'legend')
-  //   .attr('id', (d) => d)
-  //   .attr('transform', function(d, i) {
-  //     var center = width / 2;
-  //     var left = center - 60;
-  //     var h = legendRectSize + legendSpacing;
-  //     var offset =  h * colorScale.domain().length / 2;
-  //     let horz = left + (i * 60);
-  //     return 'translate(' + horz + ',' + h + ')';
-  //   });
-    // .on('click', (d) => {
-    //   const allCircles = Array.from(document.getElementsByClassName('circle'));
-    //   const otherAssessments = allCircles.filter(el => !el.classList.contains(`circle-${d}`));
-    //   console.log(`${d}: otherAssessments`);
-    //   console.log(otherAssessments);
-    //   const assessmentMatches = Array.from(document.getElementsByClassName(`circle-${d}`));
-    //   console.log(`${d}: assessmentMatches`);
-    //   console.log(assessmentMatches);
-    //   otherAssessments.forEach((el) => {
-    //     el.classList.remove('visible');
-    //     el.classList.add('hidden');
-    //   });
-    //   assessmentMatches.forEach((el) => {
-    //     el.classList.remove('hidden');
-    //     el.classList.add('visible');
-    //   });
-    //   document.getElementById('btn').classList.add('btn-show');
-    //   document.getElementById('btn').classList.remove('btn-hide');
-    // });
-
-// legend.append('rect')
-//   .attr('width', legendRectSize / 2)
-//   .attr('height', legendRectSize / 2)
-//   .style('fill', colorScale)
-//   .style('stroke', colorScale);
-
-// legend.append('text')
-//   .attr('x', legendRectSize )
-//   .attr('y', legendRectSize - (legendSpacing * 1.5))
-//   .text(function(d) { return d; });
-
-// const showAll = () => {
-//   const allCircles = Array.from(document.getElementsByClassName('circle'));
-//   allCircles.forEach((el) => {
-//     el.classList.remove('hidden');
-//     el.classList.add('visible');
-//   });
-//   document.getElementById('btn').classList.add('btn-hide');
-//   document.getElementById('btn').classList.remove('btn-show');
-//   document.getElementById('button-wrap').classList.add('btn-hide');
-//   document.getElementById('button-wrap').classList.remove('btn-show');
-// }
-
-// document.getElementById('btn').addEventListener("click", showAll);
-
 });
 
 const zoom = d3.zoom()
