@@ -12,11 +12,19 @@ body {
 }
 
 .header {
+  position: fixed;
+  top: 0;
+  background: #4196f6;
+  width: 100%;
+}
+
+.header p{
   font-size: 24px;
   width: 100%;
   text-align: center;
   color: white;
   padding: 10px;
+  margin: 0;
 }
 
 .center {
@@ -43,6 +51,10 @@ body {
 
 }
 
+svg {
+  margin-top: -20px;
+}
+
 path {
   fill: #ccc;
   stroke: #fff;
@@ -51,9 +63,55 @@ path {
 
 .legend {
   font-size: 12px;
+  width: 0;
+  padding: 0 40px;
+  position: relative;
 }
 
-.legend:hover circle {
+.legend-3 {
+  padding: 0 0 0 40px;
+}
+
+.legend-1 {}
+
+.legend-1::before {
+  background: #ff0000;
+  content: "";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  border-radius: 100%;
+  left: 10px;
+}
+.legend-2::before {
+  background: #ff8000;
+  content: "";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  border-radius: 100%;
+  left: 10px;
+}
+.legend-3::before{
+  background: #ffff00;
+  content: "";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  border-radius: 100%;
+  left: 10px;
+}
+
+.legend__wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/*.legend:hover circle {
   cursor: pointer;
   opacity: .5;
   -webkit-box-shadow: 0px 0px 10px 2px lime;
@@ -109,10 +167,11 @@ path {
   opacity: 0;
   height: 0;
   visibility: hidden;
+  padding: 0;
 }
 
 .btn-show {
   opacity: 1;
   height: auto;
   visibility: visible;
-}
+}*/
