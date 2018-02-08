@@ -18,20 +18,20 @@ const colorScale = d3.scaleLinear().domain([1,2,3]);
       .attr("class", "map");
 
   d3.queue()
-    .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/9cecda9bd8677c2a9fab1a38cb4b397cca074bfe/jsoncounties-OR.min.js?token=AX1nvdjg-LYt62aZtxafLSC3aUPge284ks5ahdL7wA%3D%3D')
+    .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/oregon-counties.json?token=AX1nvcyQFzmMOxqYxLDsRngZNFVFt0fiks5ahdiIwA%3D%3D')
     .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/us.json?token=AX1nvaGCOcfTt-j9YBYKBop1VoQl94w2ks5ahNdbwA%3D%3D')
     .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/cw.json?token=AX1nvY85DaeJj9L23zPSgCOwzb2Em0nVks5ahLVSwA%3D%3D')
     .await((error, or, us, contacts) => {
 
     if (error) console.log(error);
 
-    console.log(or.features);
+    console.log(or.objects.cb_2015_oregon_county_20m);
     console.log(us.objects.states);
 
     // var states = topojson.feature(us, us.objects.states),
     //     state = states.features.filter(function(d) { return d.id === 41; })[0];
 
-    var counties = topojson.feature(or, or.features);
+    var counties = topojson.feature(or, or.objects.cb_2015_oregon_county_20m);
 
     // projection.scale(1)
     //   .translate([0, 0]);
@@ -46,14 +46,14 @@ const colorScale = d3.scaleLinear().domain([1,2,3]);
     svg.append("g")
       .attr("class", "counties")
       .selectAll("path")
-      .data(topojson.feature(or, or.features).features)
+      .data(topojson.feature(or, or.objects.cb_2015_oregon_county_20m).features)
       .enter().append("path")
       .attr("d", path);
 
   svg.append("path")
       .attr("class", "county-borders")
       .attr("d", path(topojson.mesh(
-        or, or.features.counties,
+        or, or.objects.cb_2015_oregon_county_20m,
         (a, b) => a !== b
         )
       ));
