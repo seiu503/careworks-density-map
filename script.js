@@ -7,7 +7,7 @@ const contactScale = d3.scaleLinear().domain([1,2,3]);
 const colorScale = d3.scaleLinear().domain([1,2,3]);
 
 
-  var projection = d3.geoAlbers();
+  var projection = d3.geoCylindricalEqualArea().parallel([45]);
 
   var path = d3.geoPath()
       .projection(projection);
@@ -19,29 +19,24 @@ const colorScale = d3.scaleLinear().domain([1,2,3]);
 
   d3.queue()
     .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/oregon-counties.json?token=AX1nvcyQFzmMOxqYxLDsRngZNFVFt0fiks5ahdiIwA%3D%3D')
-    .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/us.json?token=AX1nvaGCOcfTt-j9YBYKBop1VoQl94w2ks5ahNdbwA%3D%3D')
     .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/cw.json?token=AX1nvY85DaeJj9L23zPSgCOwzb2Em0nVks5ahLVSwA%3D%3D')
-    .await((error, or, us, contacts) => {
+    .await((error, or, contacts) => {
 
     if (error) console.log(error);
 
-    console.log(or.objects.cb_2015_oregon_county_20m);
-    console.log(us.objects.states);
-
-    // var states = topojson.feature(us, us.objects.states),
-    //     state = states.features.filter(function(d) { return d.id === 41; })[0];
+    // console.log(or.objects.cb_2015_oregon_county_20m);
 
     var counties = topojson.feature(or, or.objects.cb_2015_oregon_county_20m);
 
-    // projection.scale(1)
-    //   .translate([0, 0]);
+    projection.scale(1)
+      .translate([0, 0]);
 
-    // var b = path.bounds(state),
-    //   s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
-    //   t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+    var b = path.bounds(counties),
+      s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+      t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
-    // projection.scale(s)
-    //   .translate(t);
+    projection.scale(s)
+      .translate(t);
 
     svg.append("g")
       .attr("class", "counties")
@@ -50,13 +45,13 @@ const colorScale = d3.scaleLinear().domain([1,2,3]);
       .enter().append("path")
       .attr("d", path);
 
-  svg.append("path")
-      .attr("class", "county-borders")
-      .attr("d", path(topojson.mesh(
-        or, or.objects.cb_2015_oregon_county_20m,
-        (a, b) => a !== b
-        )
-      ));
+  // svg.append("path")
+  //     .attr("class", "county-borders")
+  //     .attr("d", path(topojson.mesh(
+  //       or, or.objects.cb_2015_oregon_county_20m,
+  //       (a, b) => a !== b
+  //       )
+  //     ));
 
 
     // svg.append("path")
