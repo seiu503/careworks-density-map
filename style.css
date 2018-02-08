@@ -12,7 +12,7 @@ body {
 }
 
 .map {
-  transform: rotate(-14deg);
+
 }
 
 .outline {
@@ -30,6 +30,7 @@ body {
   stroke: #fff;
   stroke-width: .5px;
   stroke-linejoin: round;
+
 }
 
 path {
@@ -37,9 +38,9 @@ path {
   stroke: #fff;
   stroke-width: .5px;
 }
-.county:hover{
+/*.county:hover{
   fill:orange;
-}
+}*/
 
 .tooltip {
   position: absolute;
@@ -49,8 +50,8 @@ path {
   background: rgba(0, 0, 0, 0.8);
   border-radius: 2px;
   opacity: 0;
-  width: 150px;
   text-align: center;
+  z-index: 3;
 }
 
 .tip-name {
