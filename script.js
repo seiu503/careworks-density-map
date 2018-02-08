@@ -1,6 +1,6 @@
-// const initialWidth = window.innerWidth;
-// let width = initialWidth;
-// let height = width / 2;
+const initialWidth = window.innerWidth;
+let width = initialWidth;
+let height = width / 1.4;
 // const tooltip = d3.select('body').append('div').attr('class', 'tooltip').attr('id', 'tip');
 // const tip = document.getElementById('tip');
 // const contactScale = d3.scaleLinear().domain([1,2,3]);
@@ -31,8 +31,8 @@
 //     .attr('cy', d => projection([d[6], d[7]]));
 // }
 
-  var width = 960,
-    height = 500;
+  // var width = 960,
+  //   height = 500;
 
   var projection = d3.geoAlbers();
 
@@ -41,7 +41,8 @@
 
   var svg = d3.select("body").append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .attr("class", "map");
 
   d3.json("https://raw.githubusercontent.com/seiu503/careworks-density-map/master/us.json?token=AX1nvaGCOcfTt-j9YBYKBop1VoQl94w2ks5ahNdbwA%3D%3D", function(error, us) {
     if (error) throw error;
@@ -84,6 +85,7 @@
            return d.id
         }).attr("clip-path", "url(#clip-land)")
         .attr('class', 'county');
+
 });
 
 

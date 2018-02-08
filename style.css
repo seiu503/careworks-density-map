@@ -11,6 +11,10 @@ body {
   background: #4196f6;
 }
 
+.map {
+  transform: rotate(-14deg);
+}
+
 .outline {
   fill: none;
   stroke: #000;
