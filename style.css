@@ -11,6 +11,14 @@ body {
   background: #4196f6;
 }
 
+.header {
+  font-size: 24px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  padding: 10px;
+}
+
 .map {
 
 }
