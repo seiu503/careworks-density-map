@@ -15,8 +15,8 @@ var svg = d3.select("body").append("svg")
     .attr("class", "map");
 
 d3.queue()
-  .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/oregon-counties.json?token=AX1nvcyQFzmMOxqYxLDsRngZNFVFt0fiks5ahdiIwA%3D%3D')
-  .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/cw.json?token=AX1nvY85DaeJj9L23zPSgCOwzb2Em0nVks5ahLVSwA%3D%3D')
+  .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/oregon-counties.json')
+  .defer(d3.json, 'https://raw.githubusercontent.com/seiu503/careworks-density-map/master/cw.json')
   .await((error, or, contacts) => {
 
   if (error) console.log(error);
